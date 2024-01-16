@@ -25,21 +25,22 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
-Route::get('/home', [UserController::class,'showHomePage'])->middleware('auth');
+Route::get('/home', [UserController::class, 'showHomePage'])->middleware('auth');
 
 Route::get('/create-pass', function () {
-    return view('createPass');  
+    return view('createPass');
 });
 
 // Login Register routes
-Route::post('/register', [UserController::class,'actionRegister']);
+Route::post('/register', [UserController::class, 'actionRegister']);
 
-Route::post('/login',[UserController::class,'actionLogin']);
+Route::post('/login', [UserController::class, 'actionLogin']);
 
-Route::post('/logout',[UserController::class,'logout']);
+Route::post('/logout', [UserController::class, 'logout']);
 
 //Password Related Routes
-Route::post('/create-pass',[PasswordController::class,'storePassword']);
+Route::post('/create-pass', [PasswordController::class, 'storePassword']);
+Route::post('/decrypt', [PasswordController::class, 'decryptPassword']);
 
 Route::get('/sm', function () {
     return view('test');
