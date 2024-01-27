@@ -44,8 +44,8 @@ body {
     text-transform: uppercase;
     padding: 1vh 1vw;
     border-radius: 50px;
-    transition: background-color 0.2s ease-in, color 0.2s ease-in,
-        font-size 0.2s ease-in, letter-spacing 0.2s ease-in;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+        font-size 0.2s ease-in-out, letter-spacing 0.2s ease-in-out;
 }
 
 #navleft button:hover {
@@ -53,8 +53,8 @@ body {
     background-color: #fff;
     color: #000;
     letter-spacing: 2px;
-    transition: background-color 0.2s ease-in, color 0.2s ease-in,
-        font-size 0.2s ease-in, letter-spacing 0.2s ease-in;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
+        font-size 0.2s ease-in-out, letter-spacing 0.2s ease-in-out;
 }
 
 #main {

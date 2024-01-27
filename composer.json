@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "fruitcake/laravel-cors": "^1.0",
         "defuse/php-encryption": "^2.4",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",

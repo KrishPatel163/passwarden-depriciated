@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/main.css">
     <title>Home</title>
@@ -82,8 +83,7 @@
                             <td>{{ $user->website }}</td>
                             <td>{{ $user->account_name }}</td>
 
-                            <a href="/decrypt/{{ $user->password }}"></a>
-                            <td onclick="decryptP('{{ $user->password }}')" style="cursor: pointer">
+                            <td onclick="decryptAndCopy('{{ $user->password }}')" style="cursor: pointer">
                                 {{ substr($user->password, 0, 30) }}</td>
 
                             <td>{{ $user->created_at->format('d-m-y') }}</td>
@@ -108,23 +108,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-<script>
-    const encryptedPassword =
-        'eyJpdiI6IjNLSU05bjI4R0F4NTV0RGxrWE90U3c9PSIsInZhbHVlIjoiczJIVWVLMDgzQkpueWMwU0VTeHFuZz09IiwibWFjIjoiYjAwZWJjYzY1NTgzMDlmNTllNjVkYTE1Njk3YjUxMzNiMzVmZDE2MmIwNzlhMzEwNjU1MGFhOWI2NDYzZjc5ZCIsInRhZyI6IiJ9';
-    fetch('http://127.0.0.1/decrypt', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Laravel CSRF token
-            },
-            body: JSON.stringify({
-                password: encryptedPassword
-            }),
+<script src="/home.js"></script>
+{{-- <script>
+    function decryptAndCopy(encryptedPassword) {
+    fetch('http://127.0.0.1:8000/decrypt', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Laravel CSRF token
+        },
+        body: JSON.stringify({
+            pass: encryptedPassword
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        navigator.clipboard.writeText(data.password).then(() => {
+            alert("password copied successfully!")
+        }, (err) => {
+            alert("error: ", err)
         })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-</script>
-
+    })
+    .catch(error => console.error('Error:', error));
+}
+</script> --}}
 </html>

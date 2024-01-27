@@ -19,7 +19,7 @@ class PasswordController extends Controller
         $fields['website'] = strip_tags($fields['website']);
         $fields['password'] = strip_tags($fields['password']);
 
-        $fields['password'] = Crypt::encryptString($fields['password'],env('ENC_KEY'));
+        $fields['password'] = Crypt::encryptString($fields['password'], env('ENC_KEY'));
 
         $fields['users_id'] = auth()->id();
 
@@ -30,6 +30,7 @@ class PasswordController extends Controller
 
     public function decryptPassword(Request $request)
     {
-        return Crypt::decryptString($request['pass'],env('ENC_KEY'));
+        $decryptedPassword = Crypt::decryptString($request['pass'], env('ENC_KEY'));
+        return response()->json(['password' => $decryptedPassword]);
     }
 }

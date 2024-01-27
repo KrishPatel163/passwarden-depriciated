@@ -29,7 +29,7 @@ class UserController extends Controller
             $request->session()->regenerate();
             return redirect('/home');
         } else {
-            return 'failed';
+            return back()->with('failed', "invalid credentials");
         }
         // return $request;
     }
