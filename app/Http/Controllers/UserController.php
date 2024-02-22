@@ -3,11 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Mail\DemoMail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    public function checkOtp(Request $request)
+    {
+        $sessionOTP = session('otp');
+        $userOTP = $request['otp'];
+        
+        // return [$sessionOTP, $userOTP];
+
+        if ($sessionOTP === $userOTP) {
+            return "success";
+        } else {
+            return "failed";
+        }
+    }
+    public function sendMail(Request $request)
+    {
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        // Output: 54esmdr0qf 
+        $otp = substr(str_shuffle($permitted_chars), 0, 6);
+
+        $mailData = [
+            'title' => 'Password change One Time Password Request Invoked',
+            'body' => 'a one time password to change your password ',
+            'otp' => $otp,
+        ];
+        session(['otp' => $otp]);
+        $mail = Mail::to(auth()->user()->email)->send(new DemoMail($mailData));
+
+        // dd($mail);
+
+        return view('test', ['maildata' => $mailData]);
+    }
     public function showHomePage()
     {
         $user = User::find(auth()->user()->id);
@@ -48,7 +81,7 @@ class UserController extends Controller
         $Fields = $request->validate([
             'name' => ['required', 'min: 3', 'max:10', Rule::unique('user', 'name')],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:3', 'max:200']
+            'password' => ['confirmed','required', 'min:3', 'max:200']
         ]);
 
         $Fields['password'] = bcrypt($Fields['password']);

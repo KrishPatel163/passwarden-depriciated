@@ -42,6 +42,8 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/create-pass', [PasswordController::class, 'storePassword']);
 Route::post('/decrypt', [PasswordController::class, 'decryptPassword']);
 
+Route::get('/sendMail',[UserController::class,'sendMail'])->name('sendmail');
 Route::get('/sm', function () {
     return view('test');
 });
+Route::post('/sm', [UserController::class,'checkOtp']);

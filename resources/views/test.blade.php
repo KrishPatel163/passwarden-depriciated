@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/decrypt" method="post">
-        @csrf
-        <input type="text" name="pass" id="pass">
-        <button type="submit">Submit</button>
-    </form>
+    <center>
+        {{-- {{ $maildata['otp'] }} --}}
+        <form action="/sm" method="post">
+            @csrf
+            OTP: <input type="text" name="otp" id="mail"><br>
+            <button type="submit">Submit</button>
+        </form>
+    </center>
 </body>
 </html>
