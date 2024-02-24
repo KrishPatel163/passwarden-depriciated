@@ -25,11 +25,11 @@ class UserController extends Controller
     }
     public function sendMail(Request $request)
     {
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-        // Output: 54esmdr0qf 
-        $otp = substr(str_shuffle($permitted_chars), 0, 6);
+        $otp = PasswordController::generateOTP();
 
         $mailData = [
+            'to' => auth()->user()->email,
+            'from'=> env('MAIL_FROM_ADDRESS'),
             'title' => 'Password change One Time Password Request Invoked',
             'body' => 'a one time password to change your password ',
             'otp' => $otp,
@@ -39,7 +39,7 @@ class UserController extends Controller
 
         // dd($mail);
 
-        return view('test', ['maildata' => $mailData]);
+        return view('email.mail',['mailData' => $mailData]);
     }
     public function showHomePage()
     {

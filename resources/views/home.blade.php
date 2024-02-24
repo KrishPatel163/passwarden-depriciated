@@ -75,6 +75,7 @@
                 <th>Password</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Actions</th>
 
                 @if ($count > 0)
 
@@ -86,8 +87,14 @@
                             <td onclick="decryptAndCopy('{{ $user->password }}')" style="cursor: pointer">
                                 {{ substr($user->password, 0, 30) }}</td>
 
-                            <td>{{ $user->created_at->format('d-m-y') }}</td>
-                            <td>{{ $user->updated_at->format('d-m-y') }}</td>
+                            <td>{{ $user->created_at->format('d-m-y, h:m') }}</td>
+                            <td>{{ $user->updated_at->format('d-m-y, h:m') }}</td>
+                            <td class="inline">
+                                <a href="/updating/{{ $user->id }}"><button type="submit"
+                                        class="button">Update</button></a>
+                                <a href="/deleting{{ $user->id }}"><button type="submit"
+                                        class="button">Delete</button></a>
+                            </td>
                         </tr>
                     @endforeach
                 @else

@@ -42,8 +42,15 @@ Route::post('/logout', [UserController::class, 'logout']);
 Route::post('/create-pass', [PasswordController::class, 'storePassword']);
 Route::post('/decrypt', [PasswordController::class, 'decryptPassword']);
 
+Route::get('/updating/{password}',[PasswordController::class,'showUpdateForm'])->middleware('can:update,password');
+Route::put('/update/{{password}',[PasswordController::class,'updatePassword'])->middleware('can:update,password');
+
+Route::post('/delete/{password}',[PasswordController::class,'showDeleteForm']);
+Route::delete('/delete/{password}',[PasswordController::class,'deletePassword']);
+
+//Email Testing
 Route::get('/sendMail',[UserController::class,'sendMail'])->name('sendmail');
 Route::get('/sm', function () {
-    return view('test');
+    return view('sm');
 });
 Route::post('/sm', [UserController::class,'checkOtp']);
