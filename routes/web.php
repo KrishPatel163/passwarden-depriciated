@@ -43,7 +43,7 @@ Route::post('/create-pass', [PasswordController::class, 'storePassword']);
 Route::post('/decrypt', [PasswordController::class, 'decryptPassword']);
 
 Route::get('/updating/{password}',[PasswordController::class,'showUpdateForm'])->middleware('can:update,password');
-Route::put('/update/{{password}',[PasswordController::class,'updatePassword'])->middleware('can:update,password');
+Route::put('/update/{password}',[PasswordController::class,'updatePassword']);
 
 Route::post('/delete/{password}',[PasswordController::class,'showDeleteForm']);
 Route::delete('/delete/{password}',[PasswordController::class,'deletePassword']);
